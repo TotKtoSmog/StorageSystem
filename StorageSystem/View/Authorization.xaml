@@ -10,10 +10,9 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Authorization">
     <Page.DataContext>
-        <wm:MainViewModel/>
+        <wm:AuthorizationViewModel/>
     </Page.DataContext>
     <Grid>
-
         <DockPanel HorizontalAlignment="Center" 
                    VerticalAlignment="Center" 
                    Width="250">

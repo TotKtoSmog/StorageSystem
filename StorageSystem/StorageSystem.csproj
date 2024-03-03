@@ -107,8 +107,10 @@
     </Compile>
     <Compile Include="Model\Storekeeper.cs" />
     <Compile Include="Model\User.cs" />
+    <Compile Include="ViewModel\AuthorizationViewModel.cs" />
     <Compile Include="ViewModel\DelegateCommand.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\Mediator.cs" />
     <Compile Include="View\Authorization.xaml.cs">
       <DependentUpon>Authorization.xaml</DependentUpon>
     </Compile>
