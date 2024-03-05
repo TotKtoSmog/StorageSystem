@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using StorageSystem.Model;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 
@@ -6,6 +7,7 @@ namespace StorageSystem.ViewModel
 {
     public class AuthorizationViewModel : INotifyPropertyChanged
     {
+        private Storekeeper storekeeper { get; set; }
         private string _login;
         public string Login
         {
@@ -63,25 +65,27 @@ namespace StorageSystem.ViewModel
         {
             get
             {
-                return new DelegateCommand((obj) =>
+                return new DelegateCommand(async (obj) =>
                 {
+                    
                     if (Login.Length < 5 || Password.Length < 5)
                     {
                         MessageBox.Show("Данные не корректны", "Неудача(");
                     }
                     else
                     {
-
-                        if (RememberMe)
+                        storekeeper = await LocalDBHendler.LogIn(Login, Password);
+                        if (storekeeper != null)
                         {
-                            MessageBox.Show("Настройки сохранены","Успешно");
-                            SetSettings(Login, Password, RememberMe);
-                        }
+                            MessageBox.Show($"{storekeeper.Last_name} {storekeeper.First_name}", "Успешно");
+                            if (RememberMe)
+                                SetSettings(Login, Password, RememberMe);
+                            else
+                                SetSettings("", "", false);
+                            Mediator.Instance.SendMessage("MainForm", "MainUI.xaml");
+                        }    
                         else
-                        {
-                            SetSettings("", "", false);
-                        }
-                        Mediator.Instance.SendMessage("MainForm", "MainUI.xaml");
+                            MessageBox.Show($"Пользователь не найде", "Неудача(");
                     }
                 });
             }
