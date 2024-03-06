@@ -82,6 +82,8 @@ namespace StorageSystem.ViewModel
                                 SetSettings(Login, Password, RememberMe);
                             else
                                 SetSettings("", "", false);
+
+                            Mediator.Instance.SendStoreKeeperDate("MainUI", storekeeper);
                             Mediator.Instance.SendMessage("MainForm", "MainUI.xaml");
                         }    
                         else

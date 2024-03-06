@@ -212,6 +212,7 @@
     <Compile Include="ViewModel\AuthorizationViewModel.cs" />
     <Compile Include="ViewModel\DelegateCommand.cs" />
     <Compile Include="ViewModel\LocalDBHendler.cs" />
+    <Compile Include="ViewModel\MainUIViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\Mediator.cs" />
     <Compile Include="View\Authorization.xaml.cs">

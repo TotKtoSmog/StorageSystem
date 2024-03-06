@@ -20,6 +20,6 @@
         <wm:MainViewModel/>
     </Window.DataContext>
     <Grid>
-        <Frame x:Name="MainFrame" Source="{Binding PageSours}" NavigationUIVisibility="Hidden" Grid.Row="1"></Frame>
+        <Frame Visibility="Visible" Source="{Binding PageSours}" NavigationUIVisibility="Hidden" Grid.Row="1"/>
     </Grid>
 </Window>
