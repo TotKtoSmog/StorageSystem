@@ -28,7 +28,7 @@ public class Mediator
         Buff.Remove(key);
         return data;
     }
-    public static void aggDataInBuff(string key, object o)
+    public static void addDataInBuff(string key, object o)
     {
         if (Buff.ContainsKey(key))
             Buff.Remove(key);

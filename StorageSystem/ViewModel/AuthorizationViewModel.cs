@@ -1,12 +1,39 @@
-﻿using StorageSystem.Model;
+﻿using MaterialDesignThemes.Wpf;
+using StorageSystem.Model;
+using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Windows;
+using System.Threading.Tasks;
 
 namespace StorageSystem.ViewModel
 {
     public class AuthorizationViewModel : INotifyPropertyChanged
     {
+        private SnackbarMessageQueue _messagingQueue;
+        public SnackbarMessageQueue messageQueue
+        {
+            get
+            {
+                return _messagingQueue;
+            }
+            set { 
+                _messagingQueue = value;
+                OnPropertyChanged();
+            }
+        }
+        private bool _isLoadBar;
+        public bool IsLoadBar
+        {
+            get 
+            { 
+                return _isLoadBar; 
+            }
+            set 
+            { 
+                _isLoadBar = value;
+                OnPropertyChanged();
+            }
+        }
         private Storekeeper storekeeper { get; set; }
         private string _login;
         public string Login
@@ -57,6 +84,8 @@ namespace StorageSystem.ViewModel
         }
         private void GetSettings()
         {
+            IsLoadBar = false;
+            messageQueue = new SnackbarMessageQueue();
             Login = Properties.Settings.Default.Login;
             Password = Properties.Settings.Default.Password;
             RememberMe = Properties.Settings.Default.RememberMe;
@@ -67,27 +96,28 @@ namespace StorageSystem.ViewModel
             {
                 return new DelegateCommand(async (obj) =>
                 {
-                    
                     if (Login.Length < 5 || Password.Length < 5)
                     {
-                        MessageBox.Show("Данные не корректны", "Неудача(");
+                        messageQueue.Enqueue("Данные не корректны", null, null, null, false, true, TimeSpan.FromMilliseconds(300));
                     }
                     else
                     {
                         storekeeper = await LocalDBHendler.LogIn(Login, Password);
                         if (storekeeper != null)
                         {
-                            MessageBox.Show($"{storekeeper.Last_name} {storekeeper.First_name}", "Успешно");
+                            messageQueue.Enqueue($"Добро пожаловать {storekeeper.Last_name} {storekeeper.First_name}", null, null, null, false, true, TimeSpan.FromMilliseconds(300));
                             if (RememberMe)
                                 SetSettings(Login, Password, RememberMe);
                             else
                                 SetSettings("", "", false);
-
+                            IsLoadBar = true;
+                            await Task.Delay(1500);
                             Mediator.Instance.SendStoreKeeperDate("MainUI", storekeeper);
                             Mediator.Instance.SendMessage("MainForm", "MainUI.xaml");
-                        }    
+                            
+                        }
                         else
-                            MessageBox.Show($"Пользователь не найде", "Неудача(");
+                            messageQueue.Enqueue("Пользователь не найде", null, null, null, false, true, TimeSpan.FromMilliseconds(300));
                     }
                 });
             }

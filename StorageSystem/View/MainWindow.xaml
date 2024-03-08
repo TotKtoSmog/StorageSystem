@@ -15,7 +15,8 @@
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        Title="Storage System" Height="450" Width="800">
+        Title="Storage System" Height="450" Width="800"
+        WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <wm:MainViewModel/>
     </Window.DataContext>

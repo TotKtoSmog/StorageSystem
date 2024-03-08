@@ -38,10 +38,18 @@ namespace StorageSystem.ViewModel
             Mediator.Instance.ReceivingDateStoreKeeper += OnReceivingStoreKeeperDate;
             StoreKeeper = (Storekeeper)Mediator.getDataFromBuff("MainUI");
             if(StoreKeeper != null)
+            {
                 TopLogo = $"{StoreKeeper.Last_name[0]}{StoreKeeper.First_name[0]}";
+                Mediator.Instance.SendStoreKeeperDate("Settings", StoreKeeper);
+            }
+                
+
         }
         private void OnReceivingStoreKeeperDate(string receiver)
-            => StoreKeeper = (Storekeeper)Mediator.getDataFromBuff(receiver);
+        {
+            if (receiver == "MainUI")
+                StoreKeeper = (Storekeeper)Mediator.getDataFromBuff(receiver);
+        }
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string name = "")
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
