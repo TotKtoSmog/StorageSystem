@@ -1,7 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using StorageSystem.Model;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -43,7 +42,7 @@ namespace StorageSystem.ViewModel
                             (string)reader["Patronymic"],
                             (string)reader["Login"],
                             (string)reader["Password"],
-                            (string)reader["Position"],
+                            (string)reader["Position_title"],
                             (string)reader["Phone_Number"],
                             (string)reader["Email"]
                             );
@@ -56,6 +55,37 @@ namespace StorageSystem.ViewModel
             else
                 Console.WriteLine($"{result.Id} {result.Last_name} {result.First_name} {result.Patronymic} {result.PhoneNumber} {result.Email} {result.Position} {result.Login} {result.Password}");
             return result;
+        }
+        public async static Task<string> UpdateStorekeeper(Storekeeper storekeeper)
+        {
+            string resutl = "Данные обновлены";
+            string sqlExpression = $"UPDATE Employee SET Last_name = @last_name, " +
+                $"First_name = @first_name, Patronymic = @partonymic, " +
+                $"Phone_Number = @phone_number, Email = @email, " +
+                $"Login = @login, Password = @password WHERE Employee_id = @id";
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                await connection.OpenAsync();
+                SqlCommand command = new SqlCommand(sqlExpression, connection);
+                command.Parameters.Add(new SqlParameter("@last_name", storekeeper.Last_name));
+                command.Parameters.Add(new SqlParameter("@first_name", storekeeper.First_name));
+                command.Parameters.Add(new SqlParameter("@partonymic", storekeeper.Patronymic));
+                command.Parameters.Add(new SqlParameter("@phone_number", storekeeper.PhoneNumber));
+                command.Parameters.Add(new SqlParameter("@email", storekeeper.Email));
+                command.Parameters.Add(new SqlParameter("@login", storekeeper.Login));
+                command.Parameters.Add(new SqlParameter("@password", storekeeper.Password));
+                command.Parameters.Add(new SqlParameter("@id", storekeeper.Id));
+
+                try
+                {
+                    await command.ExecuteNonQueryAsync();
+                }
+                catch (Exception ex)
+                { 
+                    resutl = $"Ошибка при обновлении данных {ex.Message}";
+                }
+                return resutl;
+            }
         }
     }
 }

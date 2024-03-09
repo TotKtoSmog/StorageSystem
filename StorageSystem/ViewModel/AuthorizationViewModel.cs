@@ -113,8 +113,7 @@ namespace StorageSystem.ViewModel
                             IsLoadBar = true;
                             await Task.Delay(1500);
                             Mediator.Instance.SendStoreKeeperDate("MainUI", storekeeper);
-                            Mediator.Instance.SendMessage("MainForm", "MainUI.xaml");
-                            
+                            Mediator.Instance.SendMessage("MainForm", "MainUI.xaml"); 
                         }
                         else
                             messageQueue.Enqueue("Пользователь не найде", null, null, null, false, true, TimeSpan.FromMilliseconds(300));

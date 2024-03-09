@@ -1,6 +1,8 @@
-﻿namespace StorageSystem.Model
+﻿using System;
+
+namespace StorageSystem.Model
 {
-    public class Storekeeper:User
+    public class Storekeeper:User, ICloneable
     {
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
@@ -12,6 +14,12 @@
         {
             PhoneNumber = phoneNumber;
             Email = email;
+        }
+
+        public object Clone()
+        {
+            return new Storekeeper(Id, Last_name, First_name, Patronymic,
+            Login, Password, Position, PhoneNumber, Email);
         }
     }
 }
