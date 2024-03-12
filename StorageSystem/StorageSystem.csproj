@@ -191,6 +191,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\DocumentStatus.cs" />
+    <Compile Include="Model\DocumentType.cs" />
+    <Compile Include="ViewModel\Directorys.cs" />
     <Compile Include="ViewModel\DraftsViewModel.cs" />
     <Compile Include="ViewModel\DraftViewModel.cs" />
     <Compile Include="ViewModel\SettingsViewModel.cs" />

@@ -16,6 +16,22 @@
         <StackPanel>
             <TextBlock Text="{Binding Header}"/>
             <Button Content="Отменить" Command="{Binding Cancel}"/>
+            <ComboBox materialDesign:ComboBoxAssist.MaxLength="2" 
+                      materialDesign:HintAssist.Hint="Search" 
+                      materialDesign:HintAssist.HintOpacity=".26"
+                      IsEditable="True" 
+                      DisplayMemberPath="Name"
+                      SelectedValue="Id"
+                      ItemsSource="{Binding Path=documentTypes}" >
+            </ComboBox>
+            <ComboBox materialDesign:ComboBoxAssist.MaxLength="2" 
+                      materialDesign:HintAssist.Hint="Search" 
+                      materialDesign:HintAssist.HintOpacity=".26"
+                      IsEditable="True" 
+                      DisplayMemberPath="Name"
+                      SelectedValue="Id"
+                      ItemsSource="{Binding Path=documentStatyses}" >
+            </ComboBox>
         </StackPanel>
     </Grid>
 </Page>

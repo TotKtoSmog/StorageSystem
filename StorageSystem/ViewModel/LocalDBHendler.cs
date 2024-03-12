@@ -2,6 +2,7 @@
 using StorageSystem.Model;
 using System;
 using System.IO;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace StorageSystem.ViewModel
@@ -18,6 +19,58 @@ namespace StorageSystem.ViewModel
                 await connection.OpenAsync();
                 Console.WriteLine("Подключение открыто");
             }
+        }
+        public async static Task<List<DocumentStatus>> GetDocumentStatus()
+        {
+            List<DocumentStatus> documentTypes = new List<DocumentStatus>();
+            string sqlExpression = "SELECT * FROM Document_Status;";
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                await connection.OpenAsync();
+                SqlCommand command = new SqlCommand(sqlExpression, connection);
+                using (SqlDataReader reader = await command.ExecuteReaderAsync())
+                {
+                    if (reader.HasRows)
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            documentTypes.Add(
+                                new DocumentStatus(
+                                    (int)reader["Document_status_ID"],
+                                    (string)reader["Document_status_name"]
+                                    )
+                                );
+                        }
+                    }
+                }
+            }
+            return documentTypes;
+        }
+        public async static Task<List<DocumentType>> GetDocumentType()
+        {
+            List<DocumentType> documentTypes = new List<DocumentType>();
+            string sqlExpression = "SELECT * FROM Document_Type;";
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                await connection.OpenAsync();
+                SqlCommand command = new SqlCommand(sqlExpression, connection);
+                using (SqlDataReader reader = await command.ExecuteReaderAsync())
+                {
+                    if (reader.HasRows)
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            documentTypes.Add(
+                                new DocumentType( 
+                                    (int)reader["Document_type_ID"],
+                                    (string)reader["Document_type_name"]
+                                    )
+                                );
+                        }
+                    }
+                }
+            }
+            return documentTypes;
         }
         public async static Task<Storekeeper> LogIn(string loing, string password)
         {
