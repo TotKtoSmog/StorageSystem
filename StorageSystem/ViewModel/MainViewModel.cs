@@ -20,12 +20,13 @@ namespace StorageSystem.ViewModel
         }
         public MainViewModel()
         {
-            Mediator.Instance.GoToMainUI += OnMessageReceived;
+            Mediator.Instance.GoToPage += OnMessageReceived;
             PageSours = "Authorization.xaml";
         }
         private void OnMessageReceived(string receiver)
         {
-            PageSours = (string)Mediator.getDataFromBuff(receiver);
+            if(receiver == "MainForm") 
+                PageSours = (string)Mediator.getDataFromBuff(receiver);
         }
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string name = "")

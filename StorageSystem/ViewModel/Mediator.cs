@@ -36,16 +36,21 @@ public class Mediator
     }
     private static Dictionary<string, object> Buff;
     public event Action<string> ReceivingDateStoreKeeper;
-    public event Action<string> GoToMainUI;
+    public event Action<string> RecevingDataPage;
+    public event Action<string> GoToPage;
     public void SendStoreKeeperDate(string receiver, Storekeeper storekeeper)
     {
         Buff.Add(receiver, storekeeper);
         ReceivingDateStoreKeeper?.Invoke(receiver);
     }
-        
+    public void SendDataPage(string receiver, object data)
+    {
+        Buff.Add(receiver, data);
+        ReceivingDateStoreKeeper?.Invoke(receiver);
+    }    
     public void SendMessage(string receiver, string message)
     {
         Buff.Add(receiver, message);
-        GoToMainUI?.Invoke(receiver);
+        GoToPage?.Invoke(receiver);
     }
 }

@@ -49,6 +49,9 @@ namespace StorageSystem.ViewModel
         }
         public SettingsViewModel()
         {
+            messageQueue = new SnackbarMessageQueue();
+            StoreKeeper = new Storekeeper();
+            StoreKeeperTemp = new Storekeeper();
             Mediator.Instance.ReceivingDateStoreKeeper += ReceivingData;
             StoreKeeper = (Storekeeper)Mediator.getDataFromBuff("Settings");
             StoreKeeperTemp = (Storekeeper)StoreKeeper.Clone();
@@ -58,7 +61,7 @@ namespace StorageSystem.ViewModel
             if (receiver == "Settings")
                 StoreKeeper = (Storekeeper)Mediator.getDataFromBuff(receiver);
         }
-        public event PropertyChangedEventHandler PropertyChanged;
+        
         public DelegateCommand Save
         {
             get
@@ -81,6 +84,7 @@ namespace StorageSystem.ViewModel
                 });
             }
         }
+        public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string name = "")
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     }
