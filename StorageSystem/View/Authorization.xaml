@@ -31,11 +31,9 @@
                 <CheckBox Content="Запомнить" IsChecked="{Binding RememberMe}"></CheckBox>
             </StackPanel>
         </DockPanel>
-        
         <materialDesign:Snackbar x:Name="SnackbarTwo" 
                                  MessageQueue="{Binding messageQueue}" Background="#FFADADAD" RenderTransformOrigin="10,10">
         </materialDesign:Snackbar>
         <ProgressBar VerticalAlignment="Bottom" IsIndeterminate="{Binding IsLoadBar}" />
-        
     </Grid>
 </Page>

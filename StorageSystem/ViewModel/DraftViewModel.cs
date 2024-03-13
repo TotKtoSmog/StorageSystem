@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Xml.Linq;
 
 namespace StorageSystem.ViewModel
 {
     public class DraftViewModel : INotifyPropertyChanged
     {
-        
         private List<DocumentType> _docTypes = new List<DocumentType>();
         public List<DocumentType> documentTypes
         {
@@ -55,8 +53,8 @@ namespace StorageSystem.ViewModel
             Header = "Empty";
             Mediator.Instance.RecevingDataPage += OnRecivingData;
             Header = (string)Mediator.getDataFromBuff("Draft");
-            documentTypes = Directorys.DocumentTypes.OrderBy(n=>n.Id).ToList();
-            documentStatyses = Directorys.DocumentStatuses.OrderBy(n => n.Id).ToList();
+            documentTypes = Directories.DocumentTypes.OrderBy(n=>n.Id).ToList();
+            documentStatyses = Directories.DocumentStatuses.OrderBy(n => n.Id).ToList();
         }
         public void OnRecivingData(string receiver)
         {
@@ -68,7 +66,7 @@ namespace StorageSystem.ViewModel
             get
             {
                 return new DelegateCommand(async (obj) =>
-                Mediator.Instance.SendMessage("MainUI", "Drafts.xaml")
+                Mediator.Instance.SendMessage("MainUI", "Documents.xaml")
                 );
             }
         }

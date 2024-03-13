@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace StorageSystem.ViewModel
 {
-    public static class Directorys
+    public static class Directories
     {
         public static List<DocumentType> DocumentTypes = new List<DocumentType>();
         public static List<DocumentStatus> DocumentStatuses = new List<DocumentStatus>();

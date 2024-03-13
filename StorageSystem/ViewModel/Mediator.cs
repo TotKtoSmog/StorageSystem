@@ -1,7 +1,6 @@
 ﻿using StorageSystem.Model;
 using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
 
 public class Mediator
 {

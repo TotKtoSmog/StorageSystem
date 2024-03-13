@@ -31,7 +31,6 @@ namespace StorageSystem.ViewModel
                 OnPropertyChanged();
             }
         }
-
         private string _topLogo;
         public string TopLogo
         {
@@ -61,8 +60,8 @@ namespace StorageSystem.ViewModel
         }
         private async void GetDirectorys()
         {
-            Directorys.SetDocumentType(await LocalDBHendler.GetDocumentType());
-            Directorys.SetDocumentStatus(await LocalDBHendler.GetDocumentStatus());
+            Directories.SetDocumentType(await LocalDBHendler.GetDocumentType());
+            Directories.SetDocumentStatus(await LocalDBHendler.GetDocumentStatus());
         }
         private void OnOpenPage(string receiver)
         {
