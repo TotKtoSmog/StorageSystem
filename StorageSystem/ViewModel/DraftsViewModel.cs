@@ -1,6 +1,7 @@
 ﻿using StorageSystem.Model;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 
 namespace StorageSystem.ViewModel
@@ -20,15 +21,28 @@ namespace StorageSystem.ViewModel
                 OnPropertyChanged();
             }
         }
+        private DocumentView _document = new DocumentView();
+        public DocumentView Document
+        {
+            get 
+            { 
+                return _document; 
+            }
+            set 
+            {
+                _document = value;
+                OnPropertyChanged(); 
+            }
+        }
         public DraftsViewModel()
         {
             Mediator.Instance.RecevingDataPage += OnReceivingData;
-            documentViews = Directories.DocumentViews;
+            documentViews = Directories.DocumentViews.Where(n => n.Status != "Проведен").ToList();
         }
         private void OnReceivingData(string receiver)
         {
             if(receiver == "Drafts" && (bool)Mediator.getDataFromBuff(receiver))
-                documentViews = Directories.DocumentViews;
+                documentViews = Directories.DocumentViews.Where(n=>n.Status != "Проведен").ToList();
         }
         public DelegateCommand Open
         {
@@ -37,7 +51,7 @@ namespace StorageSystem.ViewModel
                 return new DelegateCommand(async (obj) =>
                 {
                     Mediator.Instance.SendMessage("MainUI", "Draft.xaml");
-                    Mediator.Instance.SendDataPage("Draft", "Изменить");
+                    Mediator.Instance.SendDataPage("Draft", Document);
                 });
             }
         }
@@ -48,7 +62,7 @@ namespace StorageSystem.ViewModel
                 return new DelegateCommand(async (obj) =>
                 {
                     Mediator.Instance.SendMessage("MainUI", "Draft.xaml");
-                    Mediator.Instance.SendDataPage("Draft", "Создать");
+                    Mediator.Instance.SendDataPage("Draft", new DocumentView());
                 });
             }
         }

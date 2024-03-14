@@ -24,7 +24,7 @@
                 <Button Content="Открыть" Command="{Binding Open}" Margin="10,0"/>
                 <Button Content="Создать" Command="{Binding Create}" Margin="10,0"/>
             </StackPanel>
-            <DataGrid SelectedIndex="0" AutoGenerateColumns="False" IsReadOnly="True" ItemsSource="{Binding documentViews}"  Margin="0,20" CanUserAddRows="False"
+            <DataGrid SelectedItem="{Binding Document, UpdateSourceTrigger=PropertyChanged}"  AutoGenerateColumns="False" IsReadOnly="True" ItemsSource="{Binding documentViews}"  Margin="0,20" CanUserAddRows="False"
                       SelectionMode="Single" SelectionUnit="FullRow" >
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="N" Binding="{Binding Id}"/>

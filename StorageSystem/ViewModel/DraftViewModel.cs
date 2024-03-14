@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Windows.Controls;
 
 namespace StorageSystem.ViewModel
 {
@@ -34,7 +35,21 @@ namespace StorageSystem.ViewModel
                 OnPropertyChanged();
             }
         }
-        private string _header;
+
+        private DocumentView _documentView;
+        public DocumentView documentView 
+        { 
+            get 
+            { 
+                return _documentView; 
+            } 
+            set
+            {
+                _documentView = value;
+                OnPropertyChanged();
+            }
+        }  
+        private string _header = "Empty";
         public string Header
         {
             get 
@@ -50,16 +65,11 @@ namespace StorageSystem.ViewModel
         public DraftViewModel()
         {
             documentTypes = new List<DocumentType>();
-            Header = "Empty";
-            Mediator.Instance.RecevingDataPage += OnRecivingData;
-            Header = (string)Mediator.getDataFromBuff("Draft");
+            if(Mediator.ContainsValue("Draft"))
+                Header = ((DocumentView)Mediator.getDataFromBuff("Draft")).Creator;
+
             documentTypes = Directories.DocumentTypes.OrderBy(n=>n.Id).ToList();
             documentStatyses = Directories.DocumentStatuses.OrderBy(n => n.Id).ToList();
-        }
-        public void OnRecivingData(string receiver)
-        {
-            if (receiver == "Draft")
-                Header = (string)Mediator.getDataFromBuff("Draft");
         }
         public DelegateCommand Cancel
         {

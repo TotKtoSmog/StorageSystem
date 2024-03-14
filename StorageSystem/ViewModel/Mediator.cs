@@ -33,6 +33,8 @@ public class Mediator
             Buff.Remove(key);
         Buff.Add(key, o);
     }
+    public static bool ContainsValue(string key)
+        => Buff.ContainsKey(key);
     private static Dictionary<string, object> Buff;
     public event Action<string> ReceivingDateStoreKeeper;
     public event Action<string> RecevingDataPage;
