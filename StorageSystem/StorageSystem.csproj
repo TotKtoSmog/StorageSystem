@@ -193,6 +193,7 @@
     </ApplicationDefinition>
     <Compile Include="Model\DocumentStatus.cs" />
     <Compile Include="Model\DocumentType.cs" />
+    <Compile Include="Model\DocumentView.cs" />
     <Compile Include="ViewModel\Directories.cs" />
     <Compile Include="ViewModel\DraftsViewModel.cs" />
     <Compile Include="ViewModel\DraftViewModel.cs" />

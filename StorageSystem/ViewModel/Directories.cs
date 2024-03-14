@@ -7,6 +7,9 @@ namespace StorageSystem.ViewModel
     {
         public static List<DocumentType> DocumentTypes = new List<DocumentType>();
         public static List<DocumentStatus> DocumentStatuses = new List<DocumentStatus>();
+        public static List<DocumentView> DocumentViews = new List<DocumentView>();
+        public static void SetDocumentView(List<DocumentView> documentViews)
+            => DocumentViews = documentViews;
         public static void SetDocumentType(List<DocumentType> documentTypes)
             => DocumentTypes = documentTypes;
         public static void SetDocumentStatus(List<DocumentStatus> documentStatuses)

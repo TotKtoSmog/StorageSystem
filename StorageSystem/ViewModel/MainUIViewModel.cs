@@ -55,13 +55,14 @@ namespace StorageSystem.ViewModel
                 TopLogo = $"{StoreKeeper.Last_name[0]}{StoreKeeper.First_name[0]}";
                 Mediator.Instance.SendStoreKeeperDate("Settings", StoreKeeper);
                 GetDirectorys();
-                
             }
         }
         private async void GetDirectorys()
         {
+            Directories.SetDocumentView(await LocalDBHendler.GetDocumentInfo());
             Directories.SetDocumentType(await LocalDBHendler.GetDocumentType());
             Directories.SetDocumentStatus(await LocalDBHendler.GetDocumentStatus());
+            Mediator.Instance.SendDataPage("Drafts", true);
         }
         private void OnOpenPage(string receiver)
         {

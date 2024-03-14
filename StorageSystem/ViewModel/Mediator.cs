@@ -45,7 +45,7 @@ public class Mediator
     public void SendDataPage(string receiver, object data)
     {
         Buff.Add(receiver, data);
-        ReceivingDateStoreKeeper?.Invoke(receiver);
+        RecevingDataPage?.Invoke(receiver);
     }    
     public void SendMessage(string receiver, string message)
     {

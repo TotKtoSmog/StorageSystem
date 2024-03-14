@@ -1,10 +1,35 @@
-﻿using System.ComponentModel;
+﻿using StorageSystem.Model;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace StorageSystem.ViewModel
 {
     public class DraftsViewModel : INotifyPropertyChanged
     {
+        private List<DocumentView> _documentViews = new List<DocumentView>();
+        public List<DocumentView> documentViews
+        {
+            get 
+            { 
+                return _documentViews; 
+            }
+            set 
+            { 
+                _documentViews = value;
+                OnPropertyChanged();
+            }
+        }
+        public DraftsViewModel()
+        {
+            Mediator.Instance.RecevingDataPage += OnReceivingData;
+            documentViews = Directories.DocumentViews;
+        }
+        private void OnReceivingData(string receiver)
+        {
+            if(receiver == "Drafts" && (bool)Mediator.getDataFromBuff(receiver))
+                documentViews = Directories.DocumentViews;
+        }
         public DelegateCommand Open
         {
             get

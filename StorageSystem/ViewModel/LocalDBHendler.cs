@@ -4,6 +4,7 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace StorageSystem.ViewModel
 {
@@ -71,6 +72,45 @@ namespace StorageSystem.ViewModel
                 }
             }
             return documentTypes;
+        }
+        public async static Task<List<DocumentView>> GetDocumentInfo()
+        {
+            List<DocumentView> documentViews = new List<DocumentView>();
+            string sqlExpression = "SELECT * FROM document_info;";
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                await connection.OpenAsync();
+                SqlCommand command = new SqlCommand(sqlExpression, connection);
+                using (SqlDataReader reader = await command.ExecuteReaderAsync())
+                {
+                    if (reader.HasRows)
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            documentViews.Add(
+                                new DocumentView(
+                                    (int)reader["Document_ID"],
+                                    reader["Document_title"].ToString(),
+                                    reader["Document_type"].ToString(),
+                                    reader["Creator"].ToString(),
+                                    reader["Document_description"].ToString(),
+                                    reader["Document_date"].ToString(),
+                                    reader["Document_posting_date"].ToString(),
+                                    reader["Partner"].ToString(), 
+                                    reader["Based_On"].ToString(),
+                                    reader["Document_status"].ToString(), 
+                                    reader["Total_Price_Without_Taxes"].ToString(),
+                                    reader["Total_Price_With_Taxes"].ToString(),
+                                    reader["Source_Warehouse"].ToString(),
+                                    reader["Destination_Warehouse"].ToString(),
+                                    reader["Documnet_viewed"].ToString()
+                                    )
+                                );
+                        }
+                    }
+                }
+            }
+            return documentViews;
         }
         public async static Task<Storekeeper> LogIn(string loing, string password)
         {
