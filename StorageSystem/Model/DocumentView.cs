@@ -17,8 +17,9 @@
         public string SourceWarehouse{ get; set; }
         public string DestinationWarehouse { get; set; }
         public string Viewed { get; set; }
+        public string Acceptor { get; set; }
         public DocumentView() { }
-        public DocumentView(int id, string title, string type, string creator, string description, string createDate, string postingDate, string partner, string basedOn, string status, string totalPriceWithoutTax, string totalPriceWithTax, string sourceWarehouse, string destinationWarehouse, string viewed)
+        public DocumentView(int id, string title, string type, string creator, string description, string createDate, string postingDate, string partner, string basedOn, string status, string totalPriceWithoutTax, string totalPriceWithTax, string sourceWarehouse, string destinationWarehouse, string viewed, string acceptor)
         {
             Id = id;
             Title = title;
@@ -35,6 +36,7 @@
             SourceWarehouse = sourceWarehouse;
             DestinationWarehouse = destinationWarehouse;
             Viewed = viewed;
+            Acceptor = acceptor;
         }
     }
 }

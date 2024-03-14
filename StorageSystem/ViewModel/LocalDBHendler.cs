@@ -103,7 +103,8 @@ namespace StorageSystem.ViewModel
                                     reader["Total_Price_With_Taxes"].ToString(),
                                     reader["Source_Warehouse"].ToString(),
                                     reader["Destination_Warehouse"].ToString(),
-                                    reader["Documnet_viewed"].ToString()
+                                    reader["Documnet_viewed"].ToString(),
+                                    reader["Acceptor"].ToString()
                                     )
                                 );
                         }
