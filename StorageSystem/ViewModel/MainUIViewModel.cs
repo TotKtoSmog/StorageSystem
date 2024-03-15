@@ -61,6 +61,7 @@ namespace StorageSystem.ViewModel
         {
             Directories.SetDocumentView(await LocalDBHendler.GetDocumentInfo());
             Directories.SetDocumentType(await LocalDBHendler.GetDocumentType());
+            Directories.SetwarehousehSortInfo(await LocalDBHendler.GetWarehousehSortInfo());
             Directories.SetDocumentStatus(await LocalDBHendler.GetDocumentStatus());
             Mediator.Instance.SendDataPage("Drafts", true);
         }

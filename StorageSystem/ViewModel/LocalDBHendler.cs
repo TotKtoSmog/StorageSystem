@@ -4,6 +4,7 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace StorageSystem.ViewModel
 {
@@ -71,6 +72,34 @@ namespace StorageSystem.ViewModel
                 }
             }
             return documentTypes;
+        }
+
+        public async static Task<List<WarehousehSortInfo>> GetWarehousehSortInfo()
+        {
+            List<WarehousehSortInfo> warehousehSortInfo = new List<WarehousehSortInfo>();
+            string sqlExpression = "SELECT * FROM WarehouseshortInfo;";
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                await connection.OpenAsync();
+                SqlCommand command = new SqlCommand(sqlExpression, connection);
+                using (SqlDataReader reader = await command.ExecuteReaderAsync())
+                {
+                    if (reader.HasRows)
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            warehousehSortInfo.Add(
+                                new WarehousehSortInfo(
+                                    (int)reader["Warehouse_ID"],
+                                    reader["Warehouse_name"].ToString()
+                                    )
+                                );
+                        }
+                    }
+                }
+            }
+            return warehousehSortInfo;
+
         }
         public async static Task<List<DocumentView>> GetDocumentInfo()
         {

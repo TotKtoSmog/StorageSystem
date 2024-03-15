@@ -8,6 +8,58 @@ namespace StorageSystem.ViewModel
 {
     public class DraftViewModel : INotifyPropertyChanged
     {
+        private List<WarehousehSortInfo> _sourceWarehouse = new List<WarehousehSortInfo>();
+        public List<WarehousehSortInfo> sourceWarehouse
+        {
+            get
+            {
+                return _sourceWarehouse;
+            }
+            set
+            {
+                _sourceWarehouse = value;
+                OnPropertyChanged();
+            }
+        }
+        private List<WarehousehSortInfo> _destinationWarehouse = new List<WarehousehSortInfo>();
+        public List<WarehousehSortInfo> destinationWarehouse
+        {
+            get
+            {
+                return _destinationWarehouse;
+            }
+            set
+            {
+                _destinationWarehouse = value;
+                OnPropertyChanged();
+            }
+        }
+        private WarehousehSortInfo _selectedItemsSW = new WarehousehSortInfo();
+        public WarehousehSortInfo selectedItemsSW
+        {
+            get
+            {
+                return _selectedItemsSW;
+            }
+            set
+            {
+                _selectedItemsSW = value;
+                OnPropertyChanged();
+            }
+        }
+        private WarehousehSortInfo _selectedItemsDW = new WarehousehSortInfo();
+        public WarehousehSortInfo selectedItemsDW
+        {
+            get
+            {
+                return _selectedItemsDW;
+            }
+            set
+            {
+                _selectedItemsDW = value;
+                OnPropertyChanged();
+            }
+        }
         private List<DocumentType> _docTypes = new List<DocumentType>();
         public List<DocumentType> documentTypes
         {
@@ -34,8 +86,7 @@ namespace StorageSystem.ViewModel
                 OnPropertyChanged();
             }
         }
-
-        private DocumentView _documentView;
+        private DocumentView _documentView = new DocumentView();
         public DocumentView documentView 
         { 
             get 
@@ -61,8 +112,7 @@ namespace StorageSystem.ViewModel
                 OnPropertyChanged(); 
             }
         }
-
-        private DocumentType _selectedItemDT;
+        private DocumentType _selectedItemDT = new DocumentType();
         public DocumentType SelectedItemDT
         {
             get 
@@ -75,8 +125,7 @@ namespace StorageSystem.ViewModel
                 OnPropertyChanged();
             }
         }
-
-        private DocumentStatus _selectedItemDS;
+        private DocumentStatus _selectedItemDS = new DocumentStatus();
         public DocumentStatus SelectedItemDS
         {
             get
@@ -91,8 +140,6 @@ namespace StorageSystem.ViewModel
         }
         public DraftViewModel()
         {
-            documentTypes = Directories.DocumentTypes.OrderBy(n => n.Id).ToList();
-            documentStatyses = Directories.DocumentStatuses.OrderBy(n => n.Id).ToList();
             if (Mediator.ContainsValue("Draft"))
                 GetDataDocument();
         }
@@ -105,13 +152,20 @@ namespace StorageSystem.ViewModel
                 );
             }
         }
-        public event PropertyChangedEventHandler PropertyChanged;
         private void GetDataDocument()
         {
+            documentTypes = Directories.DocumentTypes.OrderBy(n => n.Id).ToList();
+            documentStatyses = Directories.DocumentStatuses.OrderBy(n => n.Id).ToList();
+            destinationWarehouse = Directories.WarehousehSortInfos.OrderBy(n => n.Id).ToList();
+            sourceWarehouse = Directories.WarehousehSortInfos.OrderBy(n => n.Id).ToList();
             documentView = (DocumentView)Mediator.getDataFromBuff("Draft");
-            SelectedItemDS = documentStatyses.Where(n => n.Name == documentView.Status).First();
-            SelectedItemDT = documentTypes.Where(n => n.Name == documentView.Type).First();
+
+            selectedItemsSW = sourceWarehouse.Where(n => n.Name == documentView.SourceWarehouse).DefaultIfEmpty().First();
+            selectedItemsDW = destinationWarehouse.Where(n => n.Name == documentView.DestinationWarehouse).DefaultIfEmpty().First();
+            SelectedItemDS = documentStatyses.Where(n => n.Name == documentView.Status).DefaultIfEmpty().First();
+            SelectedItemDT = documentTypes.Where(n => n.Name == documentView.Type).DefaultIfEmpty().First();
         }
+        public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string name = "")
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     }
