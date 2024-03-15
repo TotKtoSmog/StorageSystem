@@ -138,6 +138,20 @@ namespace StorageSystem.ViewModel
                 OnPropertyChanged();
             }
         }
+
+        private List< MaterialInDocument> _materialInDocuments = new List< MaterialInDocument>();
+        public List< MaterialInDocument> materialInDocuments
+        {
+            get
+            {
+                return _materialInDocuments;
+            }
+            set
+            {
+                _materialInDocuments = value;
+                OnPropertyChanged();
+            }
+        }
         public DraftViewModel()
         {
             if (Mediator.ContainsValue("Draft"))
@@ -164,8 +178,15 @@ namespace StorageSystem.ViewModel
             selectedItemsDW = destinationWarehouse.Where(n => n.Name == documentView.DestinationWarehouse).DefaultIfEmpty().First();
             SelectedItemDS = documentStatyses.Where(n => n.Name == documentView.Status).DefaultIfEmpty().First();
             SelectedItemDT = documentTypes.Where(n => n.Name == documentView.Type).DefaultIfEmpty().First();
+            getMaterialInDocument();
+        }
+        private async void getMaterialInDocument()
+        {
+            if(documentView.Id != null)
+                materialInDocuments = await LocalDBHendler.GetMaterialInDocument(documentView.Id);
         }
         public event PropertyChangedEventHandler PropertyChanged;
+        
         public void OnPropertyChanged([CallerMemberName] string name = "")
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     }

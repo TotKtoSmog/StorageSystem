@@ -74,6 +74,34 @@ namespace StorageSystem.ViewModel
             return documentTypes;
         }
 
+        public async static Task<List<MaterialInDocument>> GetMaterialInDocument (int documentId)
+        {
+            List<MaterialInDocument> materialInDocuments = new List<MaterialInDocument>();
+            string sqlExpression = $"SELECT * FROM Material_In_doc WHERE Document_ID = {documentId};";
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                await connection.OpenAsync();
+                SqlCommand command = new SqlCommand(sqlExpression, connection);
+                using (SqlDataReader reader = await command.ExecuteReaderAsync())
+                {
+                    if (reader.HasRows)
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            materialInDocuments.Add(
+                                new MaterialInDocument(
+                                    (int)reader["Document_ID"],
+                                    reader["Batch_article"].ToString(),
+                                    reader["Material_name"].ToString(),
+                                    (int)reader["Quantity"]
+                                    )
+                                );
+                        }
+                    }
+                }
+            }
+            return materialInDocuments;
+        }
         public async static Task<List<WarehousehSortInfo>> GetWarehousehSortInfo()
         {
             List<WarehousehSortInfo> warehousehSortInfo = new List<WarehousehSortInfo>();

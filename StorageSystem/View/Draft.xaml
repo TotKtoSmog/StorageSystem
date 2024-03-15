@@ -94,6 +94,16 @@
                          Text="{Binding documentView.Description}"
                          />
             </StackPanel>
+            <StackPanel Margin="30,30,0,30">
+                <DataGrid AutoGenerateColumns="False" CanUserAddRows="False" ItemsSource="{Binding materialInDocuments}" 
+                          SelectionMode="Single" SelectionUnit="FullRow" >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="№ Партии" Binding="{Binding Batch}" />
+                        <DataGridTextColumn Header="Материал" Binding="{Binding MaterialName}"/>
+                        <DataGridTextColumn Header="Количество" Binding="{Binding Quantity}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="30">
                 <Button Content="Отменить" Margin="0,0,10,0" Command="{Binding Cancel}"/>
                 <Button Content="Сохранить" Margin="0,0,10,0" Command="{Binding Cancel}"/>
