@@ -3,11 +3,28 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Windows.Data;
 
 namespace StorageSystem.ViewModel
 {
     public class DraftsViewModel : INotifyPropertyChanged
     {
+        
+        private string _surch;
+        public string Surch
+        {
+            get
+            {
+                return _surch;
+            }
+            set
+            {
+                _surch = value;
+                documentViews.Where(n => n.Title.Contains(_surch)).ToList();
+                OnPropertyChanged();
+            }
+        }
+        
         private List<DocumentView> _documentViews = new List<DocumentView>();
         public List<DocumentView> documentViews
         {
@@ -31,18 +48,32 @@ namespace StorageSystem.ViewModel
             set 
             {
                 _document = value;
+
                 OnPropertyChanged(); 
             }
         }
         public DraftsViewModel()
         {
             Mediator.Instance.RecevingDataPage += OnReceivingData;
-            documentViews = Directories.DocumentViews.Where(n => n.Status != "Проведен").ToList();
+            SetDataGrid();
         }
         private void OnReceivingData(string receiver)
         {
-            if(receiver == "Drafts" && (bool)Mediator.getDataFromBuff(receiver))
-                documentViews = Directories.DocumentViews.Where(n=>n.Status != "Проведен").ToList();
+            if(receiver == "Drafts" && (bool)Mediator.getDataFromBuff(receiver)) { }
+            SetDataGrid();
+        }
+        private void SetDataGrid()
+        {
+            documentViews = Directories.DocumentViews.Where(n => n.Status != "Проведен").ToList();
+            Document = documentViews.DefaultIfEmpty( new DocumentView()).First();
+        }
+        public DelegateCommand SurchTextChenged
+        {
+            get
+            {
+                return new DelegateCommand(async (obj) =>
+                {});
+            }
         }
         public DelegateCommand Open
         {

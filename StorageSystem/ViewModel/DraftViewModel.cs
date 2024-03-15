@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Windows.Controls;
 
 namespace StorageSystem.ViewModel
 {
@@ -62,14 +61,40 @@ namespace StorageSystem.ViewModel
                 OnPropertyChanged(); 
             }
         }
+
+        private DocumentType _selectedItemDT;
+        public DocumentType SelectedItemDT
+        {
+            get 
+            { 
+                return _selectedItemDT; 
+            }
+            set
+            {
+                _selectedItemDT = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private DocumentStatus _selectedItemDS;
+        public DocumentStatus SelectedItemDS
+        {
+            get
+            {
+                return _selectedItemDS;
+            }
+            set
+            {
+                _selectedItemDS = value;
+                OnPropertyChanged();
+            }
+        }
         public DraftViewModel()
         {
-            documentTypes = new List<DocumentType>();
-            if(Mediator.ContainsValue("Draft"))
-                Header = ((DocumentView)Mediator.getDataFromBuff("Draft")).Creator;
-
-            documentTypes = Directories.DocumentTypes.OrderBy(n=>n.Id).ToList();
+            documentTypes = Directories.DocumentTypes.OrderBy(n => n.Id).ToList();
             documentStatyses = Directories.DocumentStatuses.OrderBy(n => n.Id).ToList();
+            if (Mediator.ContainsValue("Draft"))
+                GetDataDocument();
         }
         public DelegateCommand Cancel
         {
@@ -81,6 +106,12 @@ namespace StorageSystem.ViewModel
             }
         }
         public event PropertyChangedEventHandler PropertyChanged;
+        private void GetDataDocument()
+        {
+            documentView = (DocumentView)Mediator.getDataFromBuff("Draft");
+            SelectedItemDS = documentStatyses.Where(n => n.Name == documentView.Status).First();
+            SelectedItemDT = documentTypes.Where(n => n.Name == documentView.Type).First();
+        }
         public void OnPropertyChanged([CallerMemberName] string name = "")
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     }

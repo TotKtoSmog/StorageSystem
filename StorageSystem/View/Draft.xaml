@@ -14,6 +14,48 @@
     </Page.DataContext>
     <Grid>
         <StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="30,40">
+                <TextBox Width="50" Margin="0,0,20,0" IsEnabled="False" 
+                         Text="{Binding documentView.Id}" materialDesign:HintAssist.Hint="№"
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                <TextBox Width="190" Margin="0,0,20,0" 
+                         Text="{Binding documentView.Title}" materialDesign:HintAssist.Hint="Название"
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                <TextBox Width="160" Margin="0,0,20,0" IsEnabled="False" 
+                         Text="{Binding documentView.Creator}" materialDesign:HintAssist.Hint="Создатель"
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                <TextBox Width="160" Margin="0,0,20,0" IsEnabled="False" 
+                         Text="{Binding documentView.CreateDate}" materialDesign:HintAssist.Hint="Дата создания"
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                <ComboBox materialDesign:ComboBoxAssist.MaxLength="2" 
+                      materialDesign:HintAssist.Hint="Статус" 
+                      materialDesign:HintAssist.HintOpacity=".26"
+                      IsEditable="True" 
+                      DisplayMemberPath="Name"
+                      SelectedValue="Id"
+                          SelectedItem="{Binding SelectedItemDT}"
+                      ItemsSource="{Binding Path=documentTypes}" Width="104" >
+                </ComboBox>
+            </StackPanel>
+            <StackPanel>
+                <TextBox Text="{Binding documentView.Description}"
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBox Width="150" Text="{Binding documentView.Id}" />
+                <TextBox Width="150" Text="{Binding documentView.Creator}"/>
+                <TextBox Width="188" Text="{Binding documentView.Title}"/>
+                <ComboBox materialDesign:ComboBoxAssist.MaxLength="2" 
+                      materialDesign:HintAssist.Hint="Search" 
+                      materialDesign:HintAssist.HintOpacity=".26"
+                      IsEditable="True" 
+                      DisplayMemberPath="Name"
+                      SelectedValue="Id"
+                          SelectedItem="{Binding SelectedItemDT}"
+                      ItemsSource="{Binding Path=documentTypes}" Width="104" >
+                </ComboBox>
+            </StackPanel>
             <TextBlock Text="{Binding Header}"/>
             <Button Content="Отменить" Command="{Binding Cancel}"/>
             <ComboBox materialDesign:ComboBoxAssist.MaxLength="2" 

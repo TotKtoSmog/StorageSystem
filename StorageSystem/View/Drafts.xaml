@@ -18,7 +18,7 @@
             <TextBlock Text="Непроведенные документы" />
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <CheckBox Content="Созданные мной" Margin="10,0"/>
-                <TextBox VerticalAlignment="Center" Margin="10,0"
+                <TextBox Text="{Binding Surch, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Margin="10,0"
                          materialDesign:HintAssist.Hint="Поиск"
                          Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="153" />
                 <Button Content="Открыть" Command="{Binding Open}" Margin="10,0"/>

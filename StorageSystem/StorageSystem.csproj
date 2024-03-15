@@ -307,10 +307,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="DataBase\StorageSystemDB.mdf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="DataBase\StorageSystemDB_log.ldf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>StorageSystemDB.mdf</DependentUpon>
     </Content>
   </ItemGroup>
