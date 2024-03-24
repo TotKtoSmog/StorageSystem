@@ -32,8 +32,8 @@
                             <TextBlock FontSize="13" HorizontalAlignment="Center" Text="Настройки" />
                         </StackPanel>
                     </TabItem.Header>
-                    <StackPanel Margin="16">
-                        <Frame Source="Settings.xaml"></Frame>
+                    <StackPanel Margin="16,16,0,16">
+                        <Frame Source="Settings.xaml"/>
                     </StackPanel>
                 </TabItem>
                 <TabItem>

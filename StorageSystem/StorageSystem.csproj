@@ -196,10 +196,18 @@
     <Compile Include="Model\DocumentView.cs" />
     <Compile Include="Model\MaterialInDocument.cs" />
     <Compile Include="Model\WarehousehSortInfo.cs" />
+    <Compile Include="ViewModel\AcceptDocumentsViewModel.cs" />
+    <Compile Include="ViewModel\AcceptDocumentViewModel.cs" />
     <Compile Include="ViewModel\Directories.cs" />
     <Compile Include="ViewModel\DraftsViewModel.cs" />
     <Compile Include="ViewModel\DraftViewModel.cs" />
     <Compile Include="ViewModel\SettingsViewModel.cs" />
+    <Compile Include="View\AcceptDocument.xaml.cs">
+      <DependentUpon>AcceptDocument.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AcceptDocuments.xaml.cs">
+      <DependentUpon>AcceptDocuments.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Documents.xaml.cs">
       <DependentUpon>Documents.xaml</DependentUpon>
     </Compile>
@@ -212,6 +220,14 @@
     <Compile Include="View\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
+    <Page Include="View\AcceptDocument.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AcceptDocuments.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Authorization.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -6,9 +6,8 @@ using System.Runtime.CompilerServices;
 
 namespace StorageSystem.ViewModel
 {
-    public class DraftsViewModel : INotifyPropertyChanged
+    public class AcceptDocumentsViewModel : INotifyPropertyChanged
     {
-        
         private string _surch;
         public string Surch
         {
@@ -23,16 +22,16 @@ namespace StorageSystem.ViewModel
                 OnPropertyChanged();
             }
         }
-        
+
         private List<DocumentView> _documentViews = new List<DocumentView>();
         public List<DocumentView> documentViews
         {
-            get 
-            { 
-                return _documentViews; 
+            get
+            {
+                return _documentViews;
             }
-            set 
-            { 
+            set
+            {
                 _documentViews = value;
                 OnPropertyChanged();
             }
@@ -40,38 +39,32 @@ namespace StorageSystem.ViewModel
         private DocumentView _document = new DocumentView();
         public DocumentView Document
         {
-            get 
-            { 
-                return _document; 
+            get
+            {
+                return _document;
             }
-            set 
+            set
             {
                 _document = value;
 
-                OnPropertyChanged(); 
+                OnPropertyChanged();
             }
         }
-        public DraftsViewModel()
+        public AcceptDocumentsViewModel()
         {
-            Mediator.Instance.RecevingDataPage += OnReceivingData;
-            SetDataGrid();
-        }
-        private void OnReceivingData(string receiver)
-        {
-            if(receiver == "Drafts" && (bool)Mediator.getDataFromBuff(receiver)) { }
             SetDataGrid();
         }
         private void SetDataGrid()
         {
-            documentViews = Directories.DocumentViews.Where(n => n.Status != "Проведен").ToList();
-            Document = documentViews.DefaultIfEmpty( new DocumentView()).First();
+            documentViews = Directories.DocumentViews.Where(n => n.Status == "Проведен").ToList();
+            Document = documentViews.DefaultIfEmpty(new DocumentView()).First();
         }
         public DelegateCommand SurchTextChenged
         {
             get
             {
                 return new DelegateCommand(async (obj) =>
-                {});
+                { });
             }
         }
         public DelegateCommand Open
@@ -80,19 +73,8 @@ namespace StorageSystem.ViewModel
             {
                 return new DelegateCommand(async (obj) =>
                 {
-                    Mediator.Instance.SendMessage("MainUI", "Draft.xaml");
-                    Mediator.Instance.SendDataPage("Draft", Document);
-                });
-            }
-        }
-        public DelegateCommand Create
-        {
-            get
-            {
-                return new DelegateCommand(async (obj) =>
-                {
-                    Mediator.Instance.SendMessage("MainUI", "Draft.xaml");
-                    Mediator.Instance.SendDataPage("Draft", new DocumentView());
+                    Mediator.Instance.SendMessage("MainUI", "AcceptDocument.xaml");
+                    Mediator.Instance.SendDataPage("AcceptDocument", Document);
                 });
             }
         }

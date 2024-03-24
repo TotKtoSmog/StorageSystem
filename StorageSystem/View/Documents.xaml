@@ -35,6 +35,7 @@
                         </StackPanel>
                     </TabItem.Header>
                     <StackPanel  Margin="10,21,22,11">
+                        <Frame Source="AcceptDocuments.xaml"/>
                     </StackPanel>
                 </TabItem>
             </TabControl>

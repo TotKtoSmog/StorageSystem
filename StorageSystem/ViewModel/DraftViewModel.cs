@@ -99,19 +99,7 @@ namespace StorageSystem.ViewModel
                 OnPropertyChanged();
             }
         }  
-        private string _header = "Empty";
-        public string Header
-        {
-            get 
-            { 
-                return _header; 
-            }
-            set 
-            { 
-                _header = value; 
-                OnPropertyChanged(); 
-            }
-        }
+        
         private DocumentType _selectedItemDT = new DocumentType();
         public DocumentType SelectedItemDT
         {
@@ -138,7 +126,6 @@ namespace StorageSystem.ViewModel
                 OnPropertyChanged();
             }
         }
-
         private List< MaterialInDocument> _materialInDocuments = new List< MaterialInDocument>();
         public List< MaterialInDocument> materialInDocuments
         {
@@ -178,12 +165,18 @@ namespace StorageSystem.ViewModel
             selectedItemsDW = destinationWarehouse.Where(n => n.Name == documentView.DestinationWarehouse).DefaultIfEmpty().First();
             SelectedItemDS = documentStatyses.Where(n => n.Name == documentView.Status).DefaultIfEmpty().First();
             SelectedItemDT = documentTypes.Where(n => n.Name == documentView.Type).DefaultIfEmpty().First();
-            getMaterialInDocument();
+            formatingDocumentView();
         }
-        private async void getMaterialInDocument()
+        private async void formatingDocumentView()
         {
-            if(documentView.Id != null)
+            if(documentView.Id != 0)
+            {
                 materialInDocuments = await LocalDBHendler.GetMaterialInDocument(documentView.Id);
+            }
+            else
+            {
+                documentView.Creator = $"{Directories.storekeeper.Last_name} {Directories.storekeeper.First_name} {Directories.storekeeper.Patronymic}";
+            }
         }
         public event PropertyChangedEventHandler PropertyChanged;
         
