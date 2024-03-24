@@ -75,8 +75,9 @@ namespace StorageSystem.ViewModel
             }
         }
         public AuthorizationViewModel() => GetSettings();
-        private void SetSettings(string Login, string Password, bool RememberMe)
+        private void SetSettings(string Login, string Password, bool RememberMe, int id)
         {
+            Properties.Settings.Default.Id = id;
             Properties.Settings.Default.Login = Login;
             Properties.Settings.Default.Password = Password;
             Properties.Settings.Default.RememberMe = RememberMe;
@@ -107,9 +108,17 @@ namespace StorageSystem.ViewModel
                         {
                             messageQueue.Enqueue($"Добро пожаловать {storekeeper.Last_name} {storekeeper.First_name}", null, null, null, false, true, TimeSpan.FromMilliseconds(300));
                             if (RememberMe)
-                                SetSettings(Login, Password, RememberMe);
+                                SetSettings(Login, Password, RememberMe, storekeeper.Id);
                             else
-                                SetSettings("", "", false);
+                                SetSettings("", "", false, 0);
+                            Directories.SetStorekeeper(new Storekeeper(storekeeper.Id, 
+                                storekeeper.Last_name, 
+                                storekeeper.First_name, 
+                                storekeeper.Patronymic, 
+                                "","",storekeeper.Position,
+                                storekeeper.PhoneNumber,
+                                storekeeper.Email
+                                ));
                             IsLoadBar = true;
                             await Task.Delay(1500);
                             Mediator.Instance.SendStoreKeeperDate("MainUI", storekeeper);

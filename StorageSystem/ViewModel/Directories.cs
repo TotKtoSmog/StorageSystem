@@ -9,7 +9,10 @@ namespace StorageSystem.ViewModel
         public static List<DocumentStatus> DocumentStatuses = new List<DocumentStatus>();
         public static List<DocumentView> DocumentViews = new List<DocumentView>();
         public static List<WarehousehSortInfo> WarehousehSortInfos = new List<WarehousehSortInfo>();
+        public static Storekeeper storekeeper = new Storekeeper();
 
+        public static void SetStorekeeper(Storekeeper _storekeeper)
+            => storekeeper = _storekeeper;
         public static void SetwarehousehSortInfo(List<WarehousehSortInfo> warehousehSortInfos)
             => WarehousehSortInfos = warehousehSortInfos;
         public static void SetDocumentView(List<DocumentView> documentViews)
