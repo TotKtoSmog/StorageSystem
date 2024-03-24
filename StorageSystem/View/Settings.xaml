@@ -13,41 +13,36 @@
         <vm:SettingsViewModel/>
     </Page.DataContext>
     <Grid>
-        <DockPanel>
-            <TextBlock DockPanel.Dock="Top" Text="Настройки пользователя"/>
-            <StackPanel DockPanel.Dock="Right" Margin="30">
-                <TextBox Text="{Binding StoreKeeperTemp.First_name, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"
+        <TextBlock Text="Настройки пользователя"/>
+        <StackPanel Margin="30">
+            <TextBox Text="{Binding StoreKeeperTemp.First_name, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"
                          materialDesign:HintAssist.Hint="Имя"
                          Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                <TextBox Text="{Binding StoreKeeperTemp.Last_name, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"
+            <TextBox Text="{Binding StoreKeeperTemp.Last_name, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"
                          materialDesign:HintAssist.Hint="Фамилия"
                          Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                <TextBox Text="{Binding StoreKeeperTemp.Patronymic, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"
+            <TextBox Text="{Binding StoreKeeperTemp.Patronymic, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"
                          materialDesign:HintAssist.Hint="Отчество"
                          Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                <TextBox Text="{Binding StoreKeeperTemp.PhoneNumber, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"
+            <TextBox Text="{Binding StoreKeeperTemp.PhoneNumber, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"
                          materialDesign:HintAssist.Hint="Номер телефона"
                          Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                <TextBox Text="{Binding StoreKeeperTemp.Email, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"
+            <TextBox Text="{Binding StoreKeeperTemp.Email, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"
                          materialDesign:HintAssist.Hint="Email"
                          Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                <TextBox Text="{Binding StoreKeeperTemp.Login, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"
+            <TextBox Text="{Binding StoreKeeperTemp.Login, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"
                          materialDesign:HintAssist.Hint="Логин"
                          Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                <TextBox Text="{Binding StoreKeeperTemp.Password, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"
+            <TextBox Text="{Binding StoreKeeperTemp.Password, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"
                          materialDesign:HintAssist.Hint="Пароль"
                          Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                <StackPanel Orientation="Horizontal">
-                    <Button Margin="10,10" Content="Сохранить" Command="{Binding Save}"/>
-                    <Button Margin="10,10" Content="Отменить" Command="{Binding Cansel}"/>
-                </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Button Margin="10,10" Content="Сохранить" Command="{Binding Save}"/>
+                <Button Margin="10,10" Content="Отменить" Command="{Binding Cansel}"/>
             </StackPanel>
-            <materialDesign:Snackbar DockPanel.Dock="Bottom"
-                         MessageQueue="{Binding messageQueue}" Background="#FFADADAD" RenderTransformOrigin="10,10"/>
-
-        </DockPanel>
-        
-        
-        
+        </StackPanel>
+        <materialDesign:Snackbar VerticalAlignment="Top"
+                         MessageQueue="{Binding messageQueue}" Background="#FFADADAD" RenderTransformOrigin="10,10">
+        </materialDesign:Snackbar>
     </Grid>
 </Page>
