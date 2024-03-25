@@ -58,7 +58,6 @@ namespace StorageSystem.ViewModel
         }
         private void OnReceivingData(string receiver)
         {
-            if(receiver == "Drafts" && (bool)Mediator.getDataFromBuff(receiver)) { }
             SetDataGrid();
         }
         private void SetDataGrid()

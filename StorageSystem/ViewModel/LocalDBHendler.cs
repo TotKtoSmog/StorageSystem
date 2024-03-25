@@ -21,6 +21,62 @@ namespace StorageSystem.ViewModel
                 Console.WriteLine("Подключение открыто");
             }
         }
+        public static List<WarehouseRemains> GetWarehouseRemains()
+        {
+            List<WarehouseRemains> warehouseRemains = new List<WarehouseRemains>();
+            string sqlExpression = "SELECT * FROM RemainsWarehouse;";
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand(sqlExpression, connection);
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            warehouseRemains.Add(
+                                new WarehouseRemains(
+                                    (int)reader["Warehouse_ID"],
+                                    (string)reader["Warehouse_name"],
+                                    (int)reader["Quantity"]
+                                    )
+                                );
+                        }
+                    }
+                }
+            }
+            return warehouseRemains;
+        }
+        public static List<ReportMatInWarehouse> GetReportMatInWarehouse()
+        {
+            List<ReportMatInWarehouse> matInWarehouse = new List<ReportMatInWarehouse>();
+            string sqlExpression = "SELECT * FROM ReportMaterialInWarehouse;";
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand(sqlExpression, connection);
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            matInWarehouse.Add(
+                                new ReportMatInWarehouse(
+                                    (int)reader["Warehouse_ID"],
+                                    (string)reader["Batch_article"],
+                                    (string)reader["Material_name"],
+                                    (string)reader["Material_type_name"],
+                                    (int)reader["Quantity"]
+                                    )
+                                );
+                        }
+                    }
+                }
+            }
+            return matInWarehouse;
+        }
         public async static Task<List<DocumentStatus>> GetDocumentStatus()
         {
             List<DocumentStatus> documentTypes = new List<DocumentStatus>();

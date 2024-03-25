@@ -18,7 +18,7 @@ namespace StorageSystem.ViewModel
             set
             {
                 _surch = value;
-                documentViews.Where(n => n.Title.Contains(_surch)).ToList();
+                //documentViews.Where(n => n.Title.Contains(_surch)).ToList();
                 OnPropertyChanged();
             }
         }
@@ -51,6 +51,10 @@ namespace StorageSystem.ViewModel
             }
         }
         public AcceptDocumentsViewModel()
+        {
+            Mediator.Instance.RecevingDataPage += OnReceivingData;
+        }
+        private void OnReceivingData(string receiver)
         {
             SetDataGrid();
         }

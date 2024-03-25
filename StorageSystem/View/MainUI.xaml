@@ -51,12 +51,12 @@
                 <TabItem>
                     <TabItem.Header>
                         <StackPanel Width="auto" Height="auto">
-                            <materialDesign:PackIcon Width="24" Height="24" HorizontalAlignment="Center" Kind="Images" />
-                            <TextBlock HorizontalAlignment="Center" Text="Photos" />
+                            <materialDesign:PackIcon Width="24" Height="24" HorizontalAlignment="Center" Kind="ArchiveSettings" />
+                            <TextBlock HorizontalAlignment="Center" Text="Партии" />
                         </StackPanel>
                     </TabItem.Header>
                     <StackPanel Margin="16">
-                        <TextBlock Margin="0,0,0,8" Style="{StaticResource MaterialDesignHeadline5TextBlock}" Text="Photos" />
+                        <TextBlock Margin="0,0,0,8" Style="{StaticResource MaterialDesignHeadline5TextBlock}" Text="Партии" />
                         <TextBlock> 
                             <Run Text="tab 3 content. Default look and behaviors." /> 
                             <LineBreak /> 
@@ -71,21 +71,12 @@
                     <TabItem.Header>
                         <StackPanel Width="auto" Height="auto">
                             <materialDesign:PackIcon Width="24" Height="24" HorizontalAlignment="Center" 
-                                                     Kind="MusicBoxMultiple" />
-                            <TextBlock HorizontalAlignment="Center" Text="Sounds" />
+                                                     Kind="ChartPie" />
+                            <TextBlock HorizontalAlignment="Center" Text="Отчеты" />
                         </StackPanel>
                     </TabItem.Header>
                     <StackPanel Margin="16">
-                        <TextBlock Margin="0,0,0,8" Style="{StaticResource MaterialDesignHeadline5TextBlock}" 
-                                   Text="Sounds" />
-                        <TextBlock> 
-                            <Run Text="tab 4 content. Default look and behaviors." /> 
-                            <LineBreak /> 
-                            <LineBreak /> 
-                            <Run FontStyle="Italic"> 
-                                Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit... 
-                            </Run>
-                        </TextBlock>
+                        <Frame Source="{Binding SourceReport}"/>
                     </StackPanel>
                 </TabItem>
             </TabControl>

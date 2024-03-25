@@ -6,6 +6,20 @@ namespace StorageSystem.ViewModel
 {
     public class MainUIViewModel : INotifyPropertyChanged
     {
+        private string _sourceReport;
+        public string SourceReport
+        {
+            get
+            {
+                return _sourceReport;
+            }
+            set
+            {
+                _sourceReport = value;
+                OnPropertyChanged();
+            }
+        }
+        
         private string _sourceDocuments;
         public string SourceDocuments
         {
@@ -48,6 +62,7 @@ namespace StorageSystem.ViewModel
         {
             Mediator.Instance.GoToPage += OnOpenPage;
             SourceDocuments = "Documents.xaml";
+            SourceReport = "Reports.xaml";
             Mediator.Instance.ReceivingDateStoreKeeper += OnReceivingStoreKeeperDate;
             StoreKeeper = (Storekeeper)Mediator.getDataFromBuff("MainUI");
             if(StoreKeeper != null)
@@ -68,7 +83,19 @@ namespace StorageSystem.ViewModel
         private void OnOpenPage(string receiver)
         {
             if (receiver == "MainUI")
-                SourceDocuments = (string)Mediator.getDataFromBuff(receiver);
+            {
+                string path = (string)Mediator.getDataFromBuff(receiver);
+                switch (path)
+                {
+                    case "AcceptDocument.xaml":
+                    case "Draft.xaml":
+                    case "Documents.xaml":
+                        SourceDocuments = path; break;
+                    case "Reports.xaml":
+                    case "RemainsWarehouse.xaml": SourceReport = path; break;
+                }
+            }
+                
         }
         private void OnReceivingStoreKeeperDate(string receiver)
         {
