@@ -76,7 +76,7 @@
                         </StackPanel>
                     </TabItem.Header>
                     <StackPanel Margin="16">
-                        <Frame Source="{Binding SourceReport}"/>
+                        <Frame Source="{Binding SourceReport}" />
                     </StackPanel>
                 </TabItem>
             </TabControl>

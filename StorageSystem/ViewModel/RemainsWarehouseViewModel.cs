@@ -84,6 +84,7 @@ namespace StorageSystem.ViewModel
         {
             warehouseRemains = LocalDBHendler.GetWarehouseRemains();
             _materialInWarehouseAll = LocalDBHendler.GetReportMatInWarehouse();
+            materialInWarehouse = _materialInWarehouseAll;
             SeriesCollection s = new SeriesCollection();
             foreach(WarehouseRemains wr in warehouseRemains)
             {
