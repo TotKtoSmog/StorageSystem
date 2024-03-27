@@ -6,6 +6,19 @@ namespace StorageSystem.ViewModel
 {
     public class MainUIViewModel : INotifyPropertyChanged
     {
+        private string _sourceBatch;
+        public string SourceBatch
+        {
+            get
+            {
+                return _sourceBatch;
+            }
+            set
+            {
+                _sourceBatch = value;
+                OnPropertyChanged();
+            }
+        }
         private string _sourceReport;
         public string SourceReport
         {
@@ -63,6 +76,7 @@ namespace StorageSystem.ViewModel
             Mediator.Instance.GoToPage += OnOpenPage;
             SourceDocuments = "Documents.xaml";
             SourceReport = "Reports.xaml";
+            SourceBatch = "Batches.xaml";
             Mediator.Instance.ReceivingDateStoreKeeper += OnReceivingStoreKeeperDate;
             StoreKeeper = (Storekeeper)Mediator.getDataFromBuff("MainUI");
             if(StoreKeeper != null)
@@ -78,6 +92,7 @@ namespace StorageSystem.ViewModel
             Directories.SetDocumentType(await LocalDBHendler.GetDocumentType());
             Directories.SetwarehousehSortInfo(await LocalDBHendler.GetWarehousehSortInfo());
             Directories.SetDocumentStatus(await LocalDBHendler.GetDocumentStatus());
+            Directories.SetBatche(await LocalDBHendler.GetBatchs());
             Mediator.Instance.SendDataPage("Drafts", true);
         }
         private void OnOpenPage(string receiver)
@@ -93,6 +108,8 @@ namespace StorageSystem.ViewModel
                         SourceDocuments = path; break;
                     case "Reports.xaml":
                     case "RemainsWarehouse.xaml": SourceReport = path; break;
+                    case "Batch.xaml":
+                    case "Batches.xaml": SourceBatch = path; break;
                 }
             }
                 

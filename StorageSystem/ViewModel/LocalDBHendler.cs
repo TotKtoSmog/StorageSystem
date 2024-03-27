@@ -4,7 +4,6 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Windows.Controls;
 
 namespace StorageSystem.ViewModel
 {
@@ -76,6 +75,33 @@ namespace StorageSystem.ViewModel
                 }
             }
             return matInWarehouse;
+        }
+        public async static Task<List<Batch>> GetBatchs()
+        {
+            List<Batch> Batchs = new List<Batch>();
+            string sqlExpression = "SELECT * FROM Batch;";
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                await connection.OpenAsync();
+                SqlCommand command = new SqlCommand(sqlExpression, connection);
+                using (SqlDataReader reader = await command.ExecuteReaderAsync())
+                {
+                    if (reader.HasRows)
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            Batchs.Add(
+                                new Batch(
+                                    (int)reader["Batch_ID"],
+                                    (string)reader["Batch_article"],
+                                    (string)reader["Batch_name"]
+                                    )
+                                );
+                        }
+                    }
+                }
+            }
+            return Batchs;
         }
         public async static Task<List<DocumentStatus>> GetDocumentStatus()
         {

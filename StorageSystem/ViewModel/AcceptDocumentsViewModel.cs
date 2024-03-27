@@ -56,7 +56,8 @@ namespace StorageSystem.ViewModel
         }
         private void OnReceivingData(string receiver)
         {
-            SetDataGrid();
+            if (receiver == "Drafts")
+                SetDataGrid();
         }
         private void SetDataGrid()
         {

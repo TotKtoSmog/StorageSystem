@@ -9,8 +9,14 @@ namespace StorageSystem.ViewModel
         public static List<DocumentStatus> DocumentStatuses = new List<DocumentStatus>();
         public static List<DocumentView> DocumentViews = new List<DocumentView>();
         public static List<WarehousehSortInfo> WarehousehSortInfos = new List<WarehousehSortInfo>();
+        public static List<Batch> Batches = new List<Batch>();
         public static Storekeeper storekeeper = new Storekeeper();
 
+        public static void SetBatche(List<Batch> batches)
+        {
+            Batches = batches;
+            Mediator.Instance.SendDataPage("Batchs", true);
+        }
         public static void SetStorekeeper(Storekeeper _storekeeper)
             => storekeeper = _storekeeper;
         public static void SetwarehousehSortInfo(List<WarehousehSortInfo> warehousehSortInfos)
